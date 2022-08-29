@@ -16,13 +16,14 @@
 function createNavBar() {
     let nav = document.querySelector('#navbar__list');
     let fragment = document.createDocumentFragment();
-    let sections = document.querySelectorAll('section');
-    for (let i = 0; i < 4; i++) {
+    let sections = Array.from(document.getElementsByTagName('section'))
+    for (let section of sections) {
+        const sectionId = section.id;
+        const sectionName = section.dataset.nav;
         let li = document.createElement('li');
         let link = document.createElement('a');
-        link.textContent = `Section ${i + 1}`;
-        li.appendChild(link);
-        link.setAttribute('href', `#section${i + 1}`);
+        link.textContent = `${sectionName}`;
+        link.setAttribute('href', `#${sectionId}`);
         fragment.appendChild(li);
         // Style Of Each Element in the Navigation Bar
         li.style.display = 'inline-block';
@@ -30,8 +31,9 @@ function createNavBar() {
         // Scroll Smoothly To The Section When The Link Is Clicked
         link.addEventListener('click', function (e) {
             e.preventDefault();
-            sections[i].scrollIntoView({ behavior: 'smooth' });
-        })
+            section.scrollIntoView({ behavior: 'smooth' });
+        });
+        li.appendChild(link);
     }
     nav.appendChild(fragment);
 
@@ -53,7 +55,6 @@ let sections = document.querySelectorAll('section');
 const observer = new IntersectionObserver(entries => {
     const activeLink = document.querySelector(`a[href="#${entries[0].target.id}"]`);
     if (entries[0].isIntersecting) {
-
         activeLink.classList.add('active');
         entries[0].target.classList.add('in-view');
     }

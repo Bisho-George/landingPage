@@ -22,7 +22,7 @@
     3- window.ScrollTo
     4- Toggling classes
 
- ## Features
+ ## Features:
     1- Scroll To Top Button
     2- Highlight The Section When Near To The Portheight
     3- The Website Is Responsive
